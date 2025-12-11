@@ -1,0 +1,569 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bryan Tan - Portfolio</title>
+    
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    
+    <!-- Bootstrap Icons -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
+    
+    <!-- Alpine.js -->
+    <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+    
+    <style>
+        :root {
+            --primary-blue: #2563eb;
+            --secondary-blue: #3b82f6;
+            --light-blue: #dbeafe;
+            --dark-blue: #1e40af;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            color: #333;
+        }
+        
+        .navbar {
+            background-color: var(--primary-blue) !important;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        
+        .navbar-brand, .nav-link {
+            color: white !important;
+            font-weight: 500;
+        }
+        
+        .nav-link:hover {
+            color: var(--light-blue) !important;
+        }
+        
+        .hero-section {
+            background: linear-gradient(135deg, var(--primary-blue) 0%, var(--secondary-blue) 100%);
+            color: white;
+            padding: 80px 0;
+            min-height: 500px;
+        }
+        
+        .profile-image {
+            width: 100%;
+            max-width: 400px;
+            height: 500px;
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+            overflow: hidden;
+        }
+        
+        .profile-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        
+        .section-title {
+            color: var(--primary-blue);
+            font-weight: 700;
+            margin-bottom: 30px;
+            position: relative;
+            padding-bottom: 15px;
+        }
+        
+        .section-title:after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 60px;
+            height: 3px;
+            background-color: var(--secondary-blue);
+        }
+        
+        .skill-badge {
+            background-color: var(--light-blue);
+            color: var(--dark-blue);
+            padding: 8px 16px;
+            border-radius: 20px;
+            display: inline-block;
+            margin: 5px;
+            font-weight: 500;
+            transition: all 0.3s ease;
+        }
+        
+        .skill-badge:hover {
+            background-color: var(--primary-blue);
+            color: white;
+            transform: translateY(-2px);
+        }
+        
+        .project-card {
+            border: none;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            transition: all 0.3s ease;
+            height: 100%;
+        }
+        
+        .project-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 15px rgba(0,0,0,0.2);
+        }
+        
+        .project-card .card-header {
+            background-color: var(--primary-blue);
+            color: white;
+            font-weight: 600;
+            border-radius: 10px 10px 0 0 !important;
+        }
+        
+        .education-card {
+            border-left: 4px solid var(--primary-blue);
+            padding: 20px;
+            margin-bottom: 20px;
+            background-color: #f8f9fa;
+            border-radius: 5px;
+        }
+        
+        .about-item {
+            padding: 15px;
+            margin-bottom: 15px;
+            background-color: white;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+        }
+        
+        .about-item i {
+            color: var(--primary-blue);
+            font-size: 24px;
+            margin-right: 15px;
+        }
+        
+        footer {
+            background-color: var(--dark-blue);
+            color: white;
+            padding: 30px 0;
+            margin-top: 50px;
+        }
+        
+        .btn-primary {
+            background-color: var(--primary-blue);
+            border-color: var(--primary-blue);
+        }
+        
+        .btn-primary:hover {
+            background-color: var(--dark-blue);
+            border-color: var(--dark-blue);
+        }
+        
+        .btn-success {
+            background-color: #10b981;
+            border-color: #10b981;
+        }
+        
+        .btn-success:hover {
+            background-color: #059669;
+            border-color: #059669;
+        }
+        
+        .create-portfolio-box {
+            background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+            color: white;
+            padding: 30px;
+            border-radius: 15px;
+            text-align: center;
+            margin-top: 40px;
+            box-shadow: 0 10px 25px rgba(16, 185, 129, 0.3);
+        }
+        
+        .create-portfolio-box h3 {
+            font-weight: 700;
+            margin-bottom: 15px;
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar navbar-expand-lg navbar-dark sticky-top">
+        <div class="container">
+            <a class="navbar-brand" href="#home">
+                <i class="bi bi-code-square"></i> Portfolio
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item"><a class="nav-link" href="#about">About</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#skills">Skills</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#projects">Projects</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#education">Education</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#contact">Contact</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section id="home" class="hero-section">
+        <div class="container">
+            <div class="row align-items-center">
+                <div class="col-lg-6">
+                    <h1 class="display-4 fw-bold mb-3">Bryan Steven P Tan</h1>
+                    <h3 class="mb-4">Aspiring Web Developer</h3>
+                    <p class="lead mb-4">Hi my name is Bryan and welcome to my portfolio, take a look around and see if i can interest you more about me</p>
+                    <div class="d-flex gap-3">
+                        <a href="#contact" class="btn btn-light btn-lg">Get In Touch</a>
+                        <a href="#projects" class="btn btn-outline-light btn-lg">View Projects</a>
+                    </div>
+                </div>
+                <div class="col-lg-6 text-center mt-5 mt-lg-0">
+                    <div class="profile-image mx-auto">
+                        <img src="assets/images/profile.jpg" alt="Bryan Tan" />
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about" class="py-5">
+        <div class="container">
+            <h2 class="section-title">About Me</h2>
+            <div class="row" x-data="{ showMore: false }">
+                <div class="col-lg-12">
+                    <div class="row">
+                        <div class="col-md-6 mb-3">
+                            <div class="about-item d-flex align-items-start">
+                                <i class="bi bi-heart-fill"></i>
+                                <div>
+                                    <h5 class="mb-2">Interests</h5>
+                                    <p class="mb-0">My interests are about coding, meeting people, music, anime and gaming culture.</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <div class="about-item d-flex align-items-start">
+                                <i class="bi bi-lightbulb-fill"></i>
+                                <div>
+                                    <h5 class="mb-2">Greatest Inspiration</h5>
+                                    <p class="mb-0">My father is the one who motivates me to push through my hardest, and my mother who cares for me even though im not the easiest kid to raise</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <div class="about-item d-flex align-items-start">
+                                <i class="bi bi-quote"></i>
+                                <div>
+                                    <h5 class="mb-2">Life Motto</h5>
+                                    <p class="mb-0">"The problem is not the problem. The problem is your attitude about the problem."</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <div class="about-item d-flex align-items-start">
+                                <i class="bi bi-star-fill"></i>
+                                <div>
+                                    <h5 class="mb-2">Strengths</h5>
+                                    <p class="mb-0">I am flexible in a workplace. I am a people person, i can handle collaborative work and mostly getting along with workmates.</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6 mb-3" x-show="showMore" x-transition>
+                            <div class="about-item d-flex align-items-start">
+                                <i class="bi bi-list-check"></i>
+                                <div>
+                                    <h5 class="mb-2">Bucket List</h5>
+                                    <p class="mb-0">Travel around the Philippines and understand our diverse culture, Travel to japan, learn japanese, learn to play guitar or any musical instrument</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6 mb-3" x-show="showMore" x-transition>
+                            <div class="about-item d-flex align-items-start">
+                                <i class="bi bi-trophy-fill"></i>
+                                <div>
+                                    <h5 class="mb-2">Talents</h5>
+                                    <p class="mb-0">I can do balisong tricks and perform simple card tricks.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="text-center mt-3">
+                        <button class="btn btn-primary" @click="showMore = !showMore" x-text="showMore ? 'Show Less' : 'Show More'"></button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Technical Skills Section -->
+    <section id="skills" class="py-5 bg-light">
+        <div class="container">
+            <h2 class="section-title">Technical Skills</h2>
+            <div class="row">
+                <div class="col-lg-6 mb-4">
+                    <h4 class="mb-3"><i class="bi bi-code-slash text-primary"></i> Programming Languages</h4>
+                    <div>
+                        <span class="skill-badge">JavaScript</span>
+                        <span class="skill-badge">Python</span>
+                        <span class="skill-badge">Java</span>
+                        <span class="skill-badge">PHP</span>
+                    </div>
+                </div>
+                <div class="col-lg-6 mb-4">
+                    <h4 class="mb-3"><i class="bi bi-layers text-primary"></i> Frameworks</h4>
+                    <div>
+                        <span class="skill-badge">Node.js</span>
+                        <span class="skill-badge">Laravel</span>
+                        <span class="skill-badge">Bootstrap</span>
+                        <span class="skill-badge">Alpine.js</span>
+                    </div>
+                </div>
+                <div class="col-lg-6 mb-4">
+                    <h4 class="mb-3"><i class="bi bi-tools text-primary"></i> Tools</h4>
+                    <div>
+                        <span class="skill-badge">Git</span>
+                        <span class="skill-badge">VS Code</span>
+                        <span class="skill-badge">Docker</span>
+                        <span class="skill-badge">Postman</span>
+                        <span class="skill-badge">Figma</span>
+                        <span class="skill-badge">Webpack</span>
+                    </div>
+                </div>
+                <div class="col-lg-6 mb-4">
+                    <h4 class="mb-3"><i class="bi bi-database text-primary"></i> Databases</h4>
+                    <div>
+                        <span class="skill-badge">MySQL</span>
+                        <span class="skill-badge">PostgreSQL</span>
+                        <span class="skill-badge">MongoDB</span>
+                        <span class="skill-badge">Firebase</span>
+                        <span class="skill-badge">Redis</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Projects Section -->
+    <section id="projects" class="py-5">
+        <div class="container">
+            <h2 class="section-title">Projects</h2>
+            <div class="row">
+                <div class="col-md-6 col-lg-4 mb-4">
+                    <div class="card project-card">
+                        <div class="card-header">
+                            <i class="bi bi-folder-fill me-2"></i>Project One
+                        </div>
+                        <div class="card-body">
+                            <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+                            <div class="mb-3">
+                                <span class="badge bg-primary me-1">React</span>
+                                <span class="badge bg-primary me-1">Node.js</span>
+                                <span class="badge bg-primary">MongoDB</span>
+                            </div>
+                            <a href="#" class="btn btn-primary btn-sm">View Details</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6 col-lg-4 mb-4">
+                    <div class="card project-card">
+                        <div class="card-header">
+                            <i class="bi bi-folder-fill me-2"></i>Project Two
+                        </div>
+                        <div class="card-body">
+                            <p class="card-text">Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
+                            <div class="mb-3">
+                                <span class="badge bg-primary me-1">PHP</span>
+                                <span class="badge bg-primary me-1">Laravel</span>
+                                <span class="badge bg-primary">MySQL</span>
+                            </div>
+                            <a href="#" class="btn btn-primary btn-sm">View Details</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6 col-lg-4 mb-4">
+                    <div class="card project-card">
+                        <div class="card-header">
+                            <i class="bi bi-folder-fill me-2"></i>Project Three
+                        </div>
+                        <div class="card-body">
+                            <p class="card-text">Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.</p>
+                            <div class="mb-3">
+                                <span class="badge bg-primary me-1">Python</span>
+                                <span class="badge bg-primary me-1">Django</span>
+                                <span class="badge bg-primary">PostgreSQL</span>
+                            </div>
+                            <a href="#" class="btn btn-primary btn-sm">View Details</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6 col-lg-4 mb-4">
+                    <div class="card project-card">
+                        <div class="card-header">
+                            <i class="bi bi-folder-fill me-2"></i>Project Four
+                        </div>
+                        <div class="card-body">
+                            <p class="card-text">Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+                            <div class="mb-3">
+                                <span class="badge bg-primary me-1">JavaScript</span>
+                                <span class="badge bg-primary me-1">Vue.js</span>
+                                <span class="badge bg-primary">Firebase</span>
+                            </div>
+                            <a href="#" class="btn btn-primary btn-sm">View Details</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6 col-lg-4 mb-4">
+                    <div class="card project-card">
+                        <div class="card-header">
+                            <i class="bi bi-folder-fill me-2"></i>Project Five
+                        </div>
+                        <div class="card-body">
+                            <p class="card-text">Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium.</p>
+                            <div class="mb-3">
+                                <span class="badge bg-primary me-1">TypeScript</span>
+                                <span class="badge bg-primary me-1">Angular</span>
+                                <span class="badge bg-primary">AWS</span>
+                            </div>
+                            <a href="#" class="btn btn-primary btn-sm">View Details</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6 col-lg-4 mb-4">
+                    <div class="card project-card">
+                        <div class="card-header">
+                            <i class="bi bi-folder-fill me-2"></i>Project Six
+                        </div>
+                        <div class="card-body">
+                            <p class="card-text">Totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt.</p>
+                            <div class="mb-3">
+                                <span class="badge bg-primary me-1">Java</span>
+                                <span class="badge bg-primary me-1">Spring Boot</span>
+                                <span class="badge bg-primary">Oracle</span>
+                            </div>
+                            <a href="#" class="btn btn-primary btn-sm">View Details</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Education Section -->
+    <section id="education" class="py-5 bg-light">
+        <div class="container">
+            <h2 class="section-title">Education & Certifications</h2>
+            <div class="row">
+                <div class="col-lg-6 mb-4">
+                    <h4 class="mb-4"><i class="bi bi-mortarboard-fill text-primary"></i> Education</h4>
+                    <div class="education-card">
+                        <h5>Bachelor of Science in Computer Science</h5>
+                        <p class="text-muted mb-2"><i class="bi bi-building"></i> Emilio Aguinaldo College</p>
+                        <p class="text-muted mb-2"><i class="bi bi-calendar"></i> 2021 - 2026</p>
+                        <p class="mb-0">Virtue, Excellence, Service</p>
+                        <p class="mb-0">Address: Congressional East Avenue, Burol Main, Dasmariñas City, Cavite, Philippines.</p>
+                    </div>
+                    <div class="education-card">
+                        <h5>Senior High School - STEM Track</h5>
+                        <p class="text-muted mb-2"><i class="bi bi-building"></i> Emilio Aguinaldo College</p>
+                        <p class="text-muted mb-2"><i class="bi bi-calendar"></i> 2018 - 2021</p>
+                        <p class="mb-0">Virtue, Excellence, Service</p>
+                        <p class="mb-0">Address: Congressional East Avenue, Burol Main, Dasmariñas City, Cavite, Philippines.</p>
+                    </div>
+                </div>
+                <div class="col-lg-6 mb-4">
+                    <h4 class="mb-4"><i class="bi bi-award-fill text-primary"></i> Certifications</h4>
+                    <div class="education-card">
+                        <h5>AWS Certified Solutions Architect</h5>
+                        <p class="text-muted mb-2"><i class="bi bi-building"></i> Amazon Web Services</p>
+                        <p class="text-muted mb-2"><i class="bi bi-calendar"></i> 2023</p>
+                        <p class="mb-0">Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris.</p>
+                    </div>
+                    <div class="education-card">
+                        <h5>Google Cloud Professional Certificate</h5>
+                        <p class="text-muted mb-2"><i class="bi bi-building"></i> Google Cloud</p>
+                        <p class="text-muted mb-2"><i class="bi bi-calendar"></i> 2023</p>
+                        <p class="mb-0">Duis aute irure dolor in reprehenderit in voluptate velit.</p>
+                    </div>
+                    <h5 class="mt-4"><i class="bi bi-book-fill text-primary"></i> Research Projects</h5>
+                    <div class="education-card">
+                        <h5>Research Title from SHS</h5>
+                        <p class="mb-0">Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="py-5">
+        <div class="container">
+            <h2 class="section-title">Get In Touch</h2>
+            <div class="row">
+                <div class="col-lg-6 mb-4">
+                    <h4 class="mb-4">Contact Information</h4>
+                    <div class="mb-3">
+                        <i class="bi bi-envelope-fill text-primary me-2"></i>
+                        <strong>Email:</strong> tanbryan221@gmail.com
+                    </div>
+                    <div class="mb-3">
+                        <i class="bi bi-phone-fill text-primary me-2"></i>
+                        <strong>Phone:</strong> +1 234 567 8900
+                    </div>
+                    <div class="mb-3">
+                        <i class="bi bi-geo-alt-fill text-primary me-2"></i>
+                        <strong>Location:</strong> Dasmariñas City, Cavite, Philippines
+                    </div>
+                    <div class="mt-4">
+                        <h5>Connect With Me</h5>
+                        <a href="#" class="btn btn-primary me-2 mb-2"><i class="bi bi-linkedin"></i> LinkedIn</a>
+                        <a href="#" class="btn btn-outline-primary me-2 mb-2"><i class="bi bi-github"></i> GitHub</a>
+                        <a href="#" class="btn btn-outline-primary mb-2"><i class="bi bi-twitter"></i> Twitter</a>
+                    </div>
+                </div>
+                <div class="col-lg-6">
+                    <h4 class="mb-4">Send a Message</h4>
+                    <form>
+                        <div class="mb-3">
+                            <label for="name" class="form-label">Name</label>
+                            <input type="text" class="form-control" id="name" placeholder="Your Name">
+                        </div>
+                        <div class="mb-3">
+                            <label for="email" class="form-label">Email</label>
+                            <input type="email" class="form-control" id="email" placeholder="your.email@example.com">
+                        </div>
+                        <div class="mb-3">
+                            <label for="message" class="form-label">Message</label>
+                            <textarea class="form-control" id="message" rows="4" placeholder="Your message here..."></textarea>
+                        </div>
+                        <button type="submit" class="btn btn-primary">Send Message</button>
+                    </form>
+                </div>
+            </div>
+            
+            <!-- CREATE YOUR OWN PORTFOLIO BUTTON -->
+            <div class="create-portfolio-box">
+                <i class="bi bi-rocket-takeoff" style="font-size: 48px; margin-bottom: 20px;"></i>
+                <h3>Want to Create Your Own Portfolio?</h3>
+                <p class="mb-4">Build a professional portfolio website like this one! Showcase your skills, projects, and experience to the world.</p>
+                <a href="../dynamic/index.php" class="btn btn-light btn-lg">
+                    <i class="bi bi-plus-circle me-2"></i>Create Your Portfolio Now!
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container text-center">
+            <p class="mb-2">&copy; 2025 Bryan Tan. All rights reserved.</p>
+            <p class="mb-0">Built with Bootstrap, Alpine.js, and PHP</p>
+        </div>
+    </footer>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
